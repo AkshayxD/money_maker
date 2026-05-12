@@ -331,6 +331,7 @@ def concatenate_segments(segments, output_path):
     if not segments:
         return False
 
+    output_path = Path(output_path)
     list_file = TEMP_DIR / "concat.txt"
     with open(list_file, "w") as f:
         for seg in segments:
@@ -385,6 +386,8 @@ def create_final_video(video_path, audio_path, output_path, topic, hook):
     ]
 
     subprocess.run(cmd, capture_output=True)
+
+    output_path = Path(output_path)
 
     # If text overlay fails, copy without overlay
     if not output_path.exists():

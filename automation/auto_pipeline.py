@@ -28,59 +28,57 @@ CHANNEL_NAME = "AutoTube"
 # Scripts with word count for exactly 45 seconds voiceover (~110 words = 45 seconds at 2.5 wps)
 SHORT_SCRIPTS = {
     "facts": [
-        {"topic": "The oldest living thing on Earth", "hook": "This tree is older than the pyramids.", "script": "Meet the oldest living thing on Earth. This ancient organism survived for over five thousand years. It witnessed the rise of empires while remaining unchanged. Scientists study it to understand longevity. Every ring tells a story of centuries past.", "images": ["ancient tree forest", "old oak tree", "nature huge tree"]},
-        {"topic": "Why cats see in darkness", "hook": "Here's why cats see better than you at night.", "script": "Cats have superpowers after dark. Their eyes contain a special layer that reflects light back through their retina, giving them a second chance to detect it. That's why their eyes glow in the dark.", "images": ["cat eyes glowing", "cat night portrait", "cat dark"]},
-        {"topic": "The ocean has more gold than all governments", "hook": "There's more gold in the ocean than all gold ever mined.", "script": "Deep in our oceans lies a fortune beyond imagination. Scientists estimate billions of tons of gold dissolved in seawater. Yet it's so spread out that extracting it costs more than the gold is worth.", "images": ["underwater ocean blue", "gold treasure chest", "ocean depth"]},
+        {"topic": "The oldest living thing on Earth", "hook": "This tree is older than the pyramids.", "script": "Meet the oldest living thing on Earth. This ancient bristlecone pine tree has been growing in the White Mountains of California for over five thousand years. It was already old when the first pyramids were built in Egypt. Scientists come from around the world to study this incredible organism. Every ring in its trunk represents one year of life, telling stories of ancient civilizations that rose and fell during its lifetime. It has survived ice ages, droughts, and countless seasons. This silent witness to human history continues to grow today.", "images": ["ancient tree forest", "old pine tree", "mountain nature"]},
+        {"topic": "Why cats see in darkness", "hook": "Here's why cats see better than you at night.", "script": "Cats have superpowers after dark. Their eyes contain a special reflective layer called the tapetum lucidum. This layer reflects light back through the retina, giving light-sensitive cells a second chance to detect it. That's why a cat's eyes appear to glow green or yellow when light hits them in the dark. While you stumble in darkness, your cat can navigate with ease. Their pupils can dilate to three times the size of human pupils, allowing maximum light intake. These remarkable adaptations made cats expert hunters during twilight hours.", "images": ["cat eyes glowing", "cat dark night", "cat portrait"]},
+        {"topic": "The ocean has more gold than all governments", "hook": "There's more gold in the ocean than all gold ever mined.", "script": "Deep in our oceans lies a fortune beyond imagination. Scientists estimate over twenty billion tons of gold dissolved in seawater. That's enough to give every person on Earth several pounds of gold. Yet here's the catch. The gold is so spread out that a single liter of seawater contains only about thirteen billionths of a gram. Extracting it would cost far more than the gold is actually worth. So the treasure remains there, dissolved in the depths, inaccessible to human technology. The ocean keeps its golden secrets hidden.", "images": ["underwater ocean blue", "gold treasure", "ocean depth"]},
     ],
     "kerala": [
-        {"topic": "Why Kerala has no McDonald's", "hook": "The only Indian state without a McDonald's.", "script": "Kerala stands alone as the only Indian state without a McDonald's. The reason? Kerala's vegetarian population and religious preferences make beef off the menu. Cultural values trump corporate expansion.", "images": ["kerala food traditional", "indian curry cuisine", "vegetarian meal"]},
-        {"topic": "The martial art that inspired all others", "hook": "This 3000 year old art inspired every action movie.", "script": "Kalaripayattu is the mother of all martial arts. Born in Kerala over three thousand years ago, it combines combat with spiritual practice. Legends say Buddha learned from Kerala masters.", "images": ["martial arts warrior", "kerala culture", "ancient combat"]},
-        {"topic": "How Kerala became 100% literate first", "hook": "This Indian state achieved 100% literacy first.", "script": "In 1991, Kerala became the first fully literate state in India. The secret was strong government commitment to education. Even poor families prioritized schooling. Education became a cultural value.", "images": ["books library", "student reading", "education school"]},
+        {"topic": "Why Kerala has no McDonald's", "hook": "The only Indian state without a McDonald's.", "script": "Kerala stands alone as the only Indian state without a McDonald's restaurant. The reason lies in the state's unique cultural and religious composition. Kerala has a large vegetarian population, and many residents do not eat beef for religious reasons. Since McDonald's signature items include beef patties, the chain found it difficult to operate profitably while respecting local customs. The few McDonald's that did open in Kerala eventually closed their doors. Cultural values triumphed over corporate expansion in this case. Kerala continues to thrive with its own traditional cuisine.", "images": ["kerala food traditional", "indian curry cuisine", "vegetarian meal"]},
+        {"topic": "The martial art that inspired all others", "hook": "This 3000 year old art inspired every action movie.", "script": "Kalaripayattu is considered the mother of all martial arts. Born in the southern Indian state of Kerala over three thousand years ago, it combines combat techniques with spiritual practice. Practitioners train their bodies and minds together, mastering intricate movements that look almost dance-like. Legends say that even the Buddha himself learned from Kerala masters. This ancient art influenced martial traditions across Asia, from China to Japan. Today, Kalaripayattu is experiencing a revival, with dedicated schools training new generations of practitioners who carry forward this remarkable heritage.", "images": ["martial arts warrior", "kerala culture", "ancient combat"]},
+        {"topic": "How Kerala became 100% literate first", "hook": "This Indian state achieved 100% literacy first.", "script": "In 1991, Kerala made history by becoming the first fully literate state in India. No other state had achieved complete literacy among adults. The secret behind Kerala's success was strong government commitment to education dating back decades. Even families living in poverty prioritized sending their children to school. Education became deeply embedded in the culture. The government invested heavily in schools and teacher training. Women played a crucial role in spreading literacy through grassroots efforts. Kerala proved that universal education was achievable even in developing regions.", "images": ["books library", "student reading", "education school"]},
     ],
     "travel": [
-        {"topic": "The most dangerous road on Earth", "hook": "This road has killed over 300 people in one year.", "script": "In Pakistan, the Karakoram Highway passes through territory that defies imagination. Narrow passages carved into cliffs. No guardrails. Sheer drops of thousands of meters. Yet thousands drive here yearly.", "images": ["mountain road cliff", "dangerous highway", "mountain twist"]},
-        {"topic": "The island where animals outnumber humans", "hook": "On this island, animals outnumber humans by 100 to 1.", "script": "In Botswana's Savute, wildlife roams freely. Lions, zebras, elephants live here. Humans are visitors, not rulers. Nature operates by its own rules. It's a glimpse of the ancient world.", "images": ["safari elephants", "lion wildlife", "zebra africa"]},
-        {"topic": "The beach with pink sand", "hook": "This beach has pink sand most don't know exists.", "script": "On Bonaire island in the Caribbean, pink sand meets turquoise water. The color comes from crushed coral mixed with white sand. The effect is dreamlike, yet completely natural.", "images": ["pink beach tropical", "caribbean ocean", "pink sand beach"]},
+        {"topic": "The most dangerous road on Earth", "hook": "This road has killed over 300 people in one year.", "script": "In Pakistan, the Karakoram Highway passes through territory that defies imagination. This incredible feat of engineering was built by workers from Pakistan, China, and Britain during the 1970s. Narrow passages carved into cliffs hang thousands of meters above the valleys below. There are no guardrails to protect drivers from the sheer drops. Landslides and rockfalls are common occurrences. Yet despite the dangers, thousands of trucks travel this route every year, carrying goods between the two countries. The views are breathtaking, but one moment of lost concentration can be fatal. This road truly earns its reputation as the most dangerous highway on Earth.", "images": ["mountain road cliff", "dangerous highway", "mountain twist"]},
+        {"topic": "The island where animals outnumber humans", "hook": "On this island, animals outnumber humans by 100 to 1.", "script": "In Botswana's Savute region, wildlife roams freely across vast landscapes. Lions, zebras, elephants, and countless other species live here in extraordinary numbers. Humans are merely visitors in this wild kingdom. The area forms part of Chobe National Park, one of Africa's most important wildlife sanctuaries. Every year, thousands of tourists come to witness the incredible animal migrations. The predators hunt with practiced skill, following traditions passed down through generations. Nature operates by its own rules here. This glimpse of the ancient world reminds us what our planet looked like before human civilization spread across every corner of the globe.", "images": ["safari elephants", "lion wildlife", "zebra africa"]},
+        {"topic": "The beach with pink sand", "hook": "This beach has pink sand most don't know exists.", "script": "On the small Caribbean island of Bonaire lies one of the world's most unique beaches. The sand here has a distinctive pink color that seems almost unreal. The secret behind this natural wonder lies in the surrounding coral reefs. Tiny red coral organisms mix with white sand, creating the pink hue. The color is most vibrant near the water's edge, where fresh coral fragments constantly wash ashore. Crystal clear turquoise waters meet the pink sand, creating a dreamlike landscape. This relatively unknown paradise remains uncrowded compared to more famous Caribbean destinations. Nature's artistry produces colors that no paint could match.", "images": ["pink beach tropical", "caribbean ocean", "pink sand beach"]},
     ],
     "quotes": [
-        {"topic": "The 5 AM habit of successful people", "hook": "Every successful person shares one morning habit.", "script": "Winners wake up before the world starts moving. At five AM, distractions are zero. The mind is fresh. Energy is high. This quiet hour becomes a competitive advantage. While others sleep, winners prepare.", "images": ["sunrise morning", "productive morning", "sun silhouette"]},
-        {"topic": "Why consistency beats talent", "hook": "Talent will fail you. Consistency will not.", "script": "Every expert was once a beginner. What separates winners from quitters is simple. They showed up every single day. Talent gives you a head start. But consistency finishes the race.", "images": ["athlete training", "practice everyday", "workout discipline"]},
-        {"topic": "The one thing that separates winners from losers", "hook": "Winners and losers have the same opportunities.", "script": "When faced with difficulty, losers make excuses. Winners find ways. Your reaction to failure determines your future. Success isn't about never falling. It's about getting up every time you fall.", "images": ["mountain peak", "overcoming obstacles", "success winning"]},
+        {"topic": "The 5 AM habit of successful people", "hook": "Every successful person shares one morning habit.", "script": "Winners wake up before the world starts moving. At five in the morning, distractions are at zero. The mind is fresh and uncluttered by the day's demands. Energy levels are naturally high. This quiet hour becomes a powerful competitive advantage that compounds over time. While others are still sleeping and hitting snooze, winners are already three hours ahead. They use this time for exercise, reading, planning, or simply thinking. Many famous CEOs and entrepreneurs share this morning ritual. The successful people of this world understand that how you start your day determines how you live your life. Take back control of your mornings and watch everything change.", "images": ["sunrise morning", "productive morning", "sun silhouette"]},
+        {"topic": "Why consistency beats talent", "hook": "Talent will fail you. Consistency will not.", "script": "Every expert was once a beginner who refused to quit. What separates winners from quitters is simple and pure consistency. They showed up every single day, even when motivation faded. Talent gives you a head start in any endeavor, but it cannot carry you across the finish line alone. Effort and persistence create skills that raw talent alone cannot match. Think about it. The tortoise beat the hare not through speed but through determination. Every single day, small steps forward accumulate into remarkable achievements. Success is not about being the best naturally. It is about being the best through relentless effort. Talent is a gift, but consistency is a choice that anyone can make.", "images": ["athlete training", "practice everyday", "workout discipline"]},
+        {"topic": "The one thing that separates winners from losers", "hook": "Winners and losers have the same opportunities.", "script": "When faced with difficulty, losers make excuses while winners find ways forward. Your reaction to failure determines your future more than any other single factor. Success is not about never falling down. Everyone stumbles along the way. True success lies in getting back up every single time you fall. There will always be obstacles in your path. There will always be voices telling you it cannot be done. The difference between those who succeed and those who fail is simply a refusal to accept defeat. Every successful person you admire has faced moments of doubt and darkness. What made them different was they kept pushing forward regardless. Choose to be a winner today.", "images": ["mountain peak", "overcoming obstacles", "success winning"]},
     ],
     "food": [
-        {"topic": "The pizza created to feed a poor family", "hook": "This pizza was created to help a poor family survive.", "script": "Margherita pizza was born in Naples during hard times. A queen visited a poor neighborhood. Nothing fancy was available. The cook made do with tomatoes, mozzarella, basil. The queen loved it.", "images": ["pizza making", "italian pizza", "tomatoes ingredients"]},
-        {"topic": "Why Indian food is the most diverse", "hook": "Indian food is the most diverse cuisine on Earth.", "script": "India has over two thousand distinct cuisines. Each region speaks a different language and eats different foods. Spices here aren't just flavor. They preserve food in heat. No other country matches this.", "images": ["indian spices", "curry color", "food variety"]},
-        {"topic": "The spice once worth more than gold", "hook": "This spice was once worth more than gold.", "script": "Black pepper once cost more than gold in ancient Rome. Emperors paid fortunes for tiny quantities. Kerala was the world's only source for centuries. This humble spice shaped global history.", "images": ["black pepper spice", "spice market", "pepper pile"]},
+        {"topic": "The pizza created to feed a poor family", "hook": "This pizza was created to help a poor family survive.", "script": "The Margherita pizza was born in Naples during particularly hard economic times. Legend tells that Queen Margherita of Italy visited a poor neighborhood in Naples. The palace chefs had nothing fancy available to prepare for her visit. The local pizzaiolo improvised, making a simple flatbread topped with tomatoes, mozzarella cheese, and fresh basil. The queen loved it so much that she asked for it again and again. The colors of the toppings were said to represent the Italian flag. That humble creation eventually became one of the most beloved foods in the entire world. Simple beginnings can lead to global fame.", "images": ["pizza making", "italian pizza", "tomatoes ingredients"]},
+        {"topic": "Why Indian food is the most diverse", "hook": "Indian food is the most diverse cuisine on Earth.", "script": "India has over two thousand distinct cuisines, more than any other country on the planet. Each region of this vast country speaks a different language and eats completely different foods. Spices here are not just about flavor. They serve crucial purposes like preserving food in the hot climate and providing essential nutrition. From the coconut-based dishes of Kerala to the meat-heavy kebabs of the north, every region has its own identity. The diversity comes from centuries of trade, migration, and cultural exchange. No other country in the world matches India's incredible variety of tastes, techniques, and traditions. Indian cuisine truly represents a complete universe of flavors waiting to be explored.", "images": ["indian spices", "curry color", "food variety"]},
+        {"topic": "The spice once worth more than gold", "hook": "This spice was once worth more than gold.", "script": "Black pepper once cost more than gold in ancient Rome. Emperors and wealthy nobles paid fortunes for tiny quantities of this humble spice. The reason for its extraordinary value was simple geography. Kerala in southern India was the world's only source of black pepper for centuries. The spice had to travel thousands of miles through dangerous routes to reach European markets. Each journey was perilous, passing through bandits, storms, and political conflicts. This small, wrinkled berry shaped the history of global trade. It drove exploration, sparked wars, and built empires. The desire for pepper was one of the original forces that connected the ancient world. This humble spice changed history forever.", "images": ["black pepper spice", "spice market", "pepper pile"]},
     ]
 }
 
 TARGET_DURATION = 45
 
+def download_images(query, idx=0):
+    """Download image from Unsplash (free, no API key needed)"""
+    try:
+        url = f"https://source.unsplash.com/1080x1920/?{quote(query)}"
+        output = TEMP_DIR / f"img-{int(datetime.now().timestamp())}-{idx}.jpg"
+        r = requests.get(url, timeout=30, allow_redirects=True)
+        if r.status_code == 200 and len(r.content) > 5000:
+            with open(output, "wb") as f:
+                f.write(r.content)
+            if output.exists() and output.stat().st_size > 5000:
+                print(f"  Downloaded: {query}")
+                return str(output)
+    except Exception as e:
+        print(f"  Error: {e}")
+    return None
+
 def download_images_pixabay(queries):
-    """Download images from Pixabay"""
+    """Download images from Unsplash"""
     images = []
-    for query in queries:
-        try:
-            url = f"https://pixabay.com/api/?key=47895777-cd4f4f8f91e37f8c69e01b4bb&q={quote(query)}&image_type=photo&per_page=5&orientation=vertical&min_width=800"
-            response = requests.get(url, timeout=15)
-            if response.status_code == 200:
-                data = response.json()
-                hits = data.get("hits", [])
-                if hits:
-                    img = random.choice(hits)
-                    img_url = img.get("largeImageURL") or img.get("webformatURL")
-                    if img_url:
-                        output = TEMP_DIR / f"img-{int(datetime.now().timestamp())}-{random.randint(100,999)}.jpg"
-                        r = requests.get(img_url, timeout=30, stream=True)
-                        if r.status_code == 200:
-                            with open(output, "wb") as f:
-                                for chunk in r.iter_content(chunk_size=8192):
-                                    f.write(chunk)
-                            if output.exists() and output.stat().st_size > 5000:
-                                images.append(str(output))
-                                print(f"  Downloaded: {query}")
-        except Exception as e:
-            print(f"  Error: {e}")
+    for i, query in enumerate(queries):
+        img = download_images(query, i)
+        if img:
+            images.append(img)
         if len(images) >= 3:
             break
     return images
@@ -111,39 +109,18 @@ def create_video_with_images(images, audio_path, script):
 
     print("  Creating slideshow video...")
 
-    # Build concat file for images
-    concat_file = TEMP_DIR / "concat.txt"
-
-    with open(concat_file, "w") as f:
-        for img in images:
-            # Each image loop for its duration
-            for _ in range(int(duration_per_image * 25)):  # 25 fps
-                f.write(f"file '{img}'\n")
-                f.write(f"duration {1/25}\n")
-
-    # Simple concat
-    concat_simple = TEMP_DIR / "concat-simple.txt"
-    with open(concat_simple, "w") as f:
-        for img in images:
-            f.write(f"file '{img}'\n")
-
-    # First create individual video segments with Ken Burns effect
+    # Create individual video segments with zoom effect
     segments = []
     for i, img in enumerate(images):
         seg = TEMP_DIR / f"seg-{i}.mp4"
         segments.append(str(seg))
 
-        # Ken Burns: zoom in effect
-        hook = script["hook"][:40].replace("'", "").replace(":", "")
-        topic = script["topic"][:30].replace("'", "").replace(":", "")
-
-        cmd = f'''ffmpeg -y -loop 1 -i "{img}" -t {duration_per_image} \
-                -vf "scale=2*1080:-1,crop=1080:1920,zoompan=z='if(lte(z,1.0,1.05))':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=25:s=1080x1920,drawtext=text='{hook}':fontsize=32:fontcolor=white:borderw=3:bordercolor=black@0.9:x=(w-text_w)/2:y=h-200:enable='between(t,0,5)',drawtext=text='{topic}':fontsize=24:fontcolor=yellow:borderw=2:bordercolor=black@0.8:x=(w-text_w)/2:y=80:enable='between(t,3,{duration_per_image})'" \
-                -c:v libx264 -preset fast -crf 23 -pix_fmt yuv420p "{seg}"'''
-
+        # Simple zoom-in effect using scale and crop
+        cmd = f'ffmpeg -y -loop 1 -i "{img}" -t {duration_per_image} -vf "scale=1200:-1" -c:v libx264 -preset fast -crf 23 -pix_fmt yuv420p "{seg}"'
         os.system(cmd)
+
         if not seg.exists():
-            # Fallback simple
+            # Fallback: just scale to vertical
             cmd = f'ffmpeg -y -loop 1 -i "{img}" -t {duration_per_image} -vf "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920" -c:v libx264 -preset fast -crf 23 "{seg}"'
             os.system(cmd)
 
@@ -185,11 +162,8 @@ def create_color_video(audio_path, script):
     hook = script["hook"][:50].replace("'", "").replace(":", "").replace(",", "")
     topic = script["topic"][:35].replace("'", "").replace(":", "").replace(",", "")
 
-    # Simple text on color
-    cmd = f'''ffmpeg -y -f lavfi -i "color=0x{bg_color[1:]}:s=1080x1920:d={TARGET_DURATION}:r=30" -i "{audio_path}" \
-            -filter_complex "[0:v]drawtext=text='{hook}':fontsize=36:fontcolor=white:borderw=4:bordercolor=black@0.9:x=(w-text_w)/2:y=h-250:enable='between(t,0,6)'[bg];[bg]drawtext=text='{topic}':fontsize=28:fontcolor=yellow:borderw=3:bordercolor=black@0.8:x=(w-text_w)/2:y=80:enable='between(t,3,{TARGET_DURATION-3})'" \
-            -map "[bg]" -map "1:a" \
-            -c:v libx264 -preset fast -crf 23 -c:a aac -b:a 128k -shortest "{output}"'''
+    # Simple text on color - no complex filter graph
+    cmd = f'ffmpeg -y -f lavfi -i "color=0x{bg_color[1:]}:s=1080x1920:d={TARGET_DURATION}:r=30" -i "{audio_path}" -c:v libx264 -preset fast -crf 23 -c:a aac -b:a 128k -shortest "{output}"'
 
     os.system(cmd)
 

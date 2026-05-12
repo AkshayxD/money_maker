@@ -270,6 +270,8 @@ def download_image_from_pexels(query, idx, timestamp):
 
 def create_video_segment(image_path, duration, output_path, index):
     """Create video segment with Ken Burns effect"""
+    output_path = Path(output_path)
+
     if not image_path or not Path(image_path).exists():
         # Fallback gradient
         colors = ["0x667eea", "0x764ba2", "0xf093fb", "0x4facfe", "0x00f2fe"]

@@ -1,8 +1,8 @@
 """
-YouTube Shorts Generator v8
-- Proper 9:16 vertical video (1080x1920)
-- Synced visuals: images change with narration sections
-- Natural voice with edge-tts
+YouTube Shorts Generator v9
+- Per-sentence audio generation with exact timing
+- Context-relevant images from Pexels (free API)
+- Proper audio-video sync
 """
 
 import os
@@ -26,151 +26,211 @@ for d in [IMAGES_DIR, UPLOADS_DIR, TEMP_DIR]:
 
 CHANNEL_NAME = "MindFlip"
 
-# Scripts split into sentences for timing sync
+# Scripts with per-sentence images and text
 SHORT_SCRIPTS = {
     "facts": [
-        {"topic": "The oldest living thing on Earth", "hook": "This tree is older than the pyramids.", "sentences": [
-            ("Meet the oldest living thing on Earth.", ["forest", "tree", "nature"]),
-            ("This ancient bristlecone pine tree has been growing in California for over five thousand years.", ["tree", "ancient", "forest"]),
-            ("It was already old when the first pyramids were built in Egypt.", ["pyramids", "ancient", "egypt"]),
-            ("Scientists come from around the world to study this incredible organism.", ["scientist", "research", "nature"]),
-            ("Every ring in its trunk represents one year of life.", ["tree", "rings", "nature"]),
-            ("It has survived ice ages, droughts, and countless seasons.", ["winter", "snow", "nature"]),
-            ("This silent witness to human history continues to grow today.", ["tree", "forest", "nature"]),
-        ]},
-        {"topic": "Why cats see in darkness", "hook": "Here's why cats see better than you at night.", "sentences": [
-            ("Cats have superpowers after dark.", ["cat", "animal", "night"]),
-            ("Their eyes contain a special reflective layer called the tapetum lucidum.", ["cat eyes", "animal", "nature"]),
-            ("This layer reflects light back through the retina.", ["cat", "animal", "glowing"]),
-            ("That's why a cat's eyes appear to glow green or yellow.", ["cat eyes", "animal", "glowing"]),
-            ("While you stumble in darkness, your cat can navigate with ease.", ["cat", "animal", "night"]),
-            ("Their pupils can dilate to three times the size of human pupils.", ["cat", "animal", "eyes"]),
-            ("These adaptations made cats expert hunters during twilight hours.", ["cat", "hunter", "wild"]),
-        ]},
-        {"topic": "The ocean has more gold than all governments", "hook": "There's more gold in the ocean than all gold ever mined.", "sentences": [
-            ("Deep in our oceans lies a fortune beyond imagination.", ["ocean", "underwater", "sea"]),
-            ("Scientists estimate over twenty billion tons of gold dissolved in seawater.", ["gold", "treasure", "ocean"]),
-            ("That's enough to give every person on Earth several pounds of gold.", ["gold", "treasure", "wealth"]),
-            ("Yet the gold is so spread out that extraction costs more than its worth.", ["ocean", "underwater", "depths"]),
-            ("The treasure remains dissolved in the depths, inaccessible.", ["ocean", "underwater", "deep"]),
-            ("The ocean keeps its golden secrets hidden forever.", ["ocean", "underwater", "sea"]),
-        ]},
+        {
+            "topic": "The oldest living thing on Earth",
+            "hook": "This tree is older than the pyramids.",
+            "sentences": [
+                ("Meet the oldest living thing on Earth.", "ancient bristlecone pine tree forest"),
+                ("This ancient tree has been growing for over five thousand years.", "old ancient tree bark closeup"),
+                ("It was already old when the first pyramids were built.", "egypt pyramids ancient world"),
+                ("Scientists come from around the world to study it.", "scientist research nature"),
+                ("Every ring in its trunk represents one year of history.", "tree cross section rings"),
+                ("It survived ice ages and countless seasons.", "winter snow forest trees"),
+                ("This silent witness continues to grow today.", "tree forest nature landscape"),
+            ]
+        },
+        {
+            "topic": "Why cats see in darkness",
+            "hook": "Cats see better than you at night.",
+            "sentences": [
+                ("Cats have superpowers after dark.", "cat night eyes glowing"),
+                ("Their eyes contain a special reflective layer.", "cat closeup eyes yellow"),
+                ("This layer reflects light back through the retina.", "cat animal portrait dark"),
+                ("That's why cat eyes appear to glow.", "cat glowing eyes darkness"),
+                ("While you stumble in darkness, cats navigate with ease.", "cat night vision predator"),
+                ("Their pupils dilate to three times human size.", "cat eyes closeup feline"),
+                ("These adaptations made cats expert hunters.", "cat hunting predator wild"),
+            ]
+        },
+        {
+            "topic": "The ocean has more gold than all governments",
+            "hook": "There's more gold in the ocean than ever mined.",
+            "sentences": [
+                ("Deep in our oceans lies a fortune beyond imagination.", "deep ocean underwater darkness"),
+                ("Scientists estimate over twenty billion tons of gold.", "gold bars treasure wealth"),
+                ("That's enough for everyone on Earth to have pounds of it.", "gold coins wealth money"),
+                ("Yet it's so spread out that extraction costs exceed value.", "ocean waves beach coast"),
+                ("The treasure remains dissolved in the depths.", "underwater ocean blue sea"),
+                ("The ocean keeps its golden secrets hidden forever.", "ocean depth mysterious blue"),
+            ]
+        },
     ],
     "kerala": [
-        {"topic": "Why Kerala has no McDonald's", "hook": "The only Indian state without a McDonald's.", "sentences": [
-            ("Kerala stands alone as the only Indian state without a McDonald's.", ["india", "food", "curry"]),
-            ("The reason lies in the state's unique cultural composition.", ["india", "culture", "traditional"]),
-            ("Kerala has a large vegetarian population.", ["vegetarian", "food", "healthy"]),
-            ("Many residents do not eat beef for religious reasons.", ["india", "temple", "religion"]),
-            ("McDonald's signature items include beef patties.", ["food", "burger", "restaurant"]),
-            ("The few McDonald's that opened eventually closed their doors.", ["india", "street food", "market"]),
-            ("Cultural values triumphed over corporate expansion.", ["india", "culture", "traditional"]),
-        ]},
-        {"topic": "The martial art that inspired all others", "hook": "This 3000 year old art inspired every action movie.", "sentences": [
-            ("Kalaripayattu is the mother of all martial arts.", ["martial arts", "combat", "warrior"]),
-            ("Born in Kerala over three thousand years ago.", ["india", "kerala", "traditional"]),
-            ("It combines combat techniques with spiritual practice.", ["martial arts", "yoga", "meditation"]),
-            ("Practitioners master intricate movements that look almost dance-like.", ["martial arts", "dance", "movement"]),
-            ("Legends say that even Buddha learned from Kerala masters.", ["buddha", "india", "spiritual"]),
-            ("This ancient art influenced martial traditions across Asia.", ["martial arts", "warrior", "combat"]),
-            ("Kalaripayattu is experiencing a revival today.", ["martial arts", "india", "traditional"]),
-        ]},
-        {"topic": "How Kerala became 100% literate first", "hook": "This Indian state achieved 100% literacy first.", "sentences": [
-            ("In 1991, Kerala became the first fully literate state in India.", ["books", "education", "india"]),
-            ("No other state had achieved complete adult literacy.", ["library", "reading", "books"]),
-            ("The secret was strong government commitment to education.", ["education", "school", "learning"]),
-            ("Even families living in poverty prioritized schooling.", ["education", "india", "school"]),
-            ("Education became deeply embedded in the culture.", ["books", "learning", "culture"]),
-            ("Women played a crucial role in spreading literacy.", ["women", "education", "india"]),
-            ("Kerala proved universal education was achievable.", ["education", "success", "india"]),
-        ]},
+        {
+            "topic": "Why Kerala has no McDonald's",
+            "hook": "The only Indian state without a McDonald's.",
+            "sentences": [
+                ("Kerala stands alone as the only Indian state without McDonald's.", "india street food market"),
+                ("The reason lies in the state's unique culture.", "india traditional culture colorful"),
+                ("Kerala has a large vegetarian population.", "indian vegetarian food curry"),
+                ("Many residents do not eat beef for religious reasons.", "india temple religious spiritual"),
+                ("McDonald's signature items include beef.", "burger fast food restaurant"),
+                ("The few that opened eventually closed.", "india street food vendors"),
+                ("Cultural values triumphed over corporate expansion.", "india traditional market colorful"),
+            ]
+        },
+        {
+            "topic": "The martial art that inspired all others",
+            "hook": "This 3000 year old art inspired action movies.",
+            "sentences": [
+                ("Kalaripayattu is the mother of all martial arts.", "martial arts warrior combat"),
+                ("Born in Kerala over three thousand years ago.", "india kerala traditional ancient"),
+                ("It combines combat techniques with spiritual practice.", "yoga meditation spiritual practice"),
+                ("Practitioners master movements that look dance-like.", "martial arts movement graceful"),
+                ("Legends say Buddha learned from Kerala masters.", "buddha spiritual meditation"),
+                ("This ancient art influenced traditions across Asia.", "asian martial arts warrior"),
+                ("Kalaripayattu is experiencing a revival today.", "martial arts training practice"),
+            ]
+        },
+        {
+            "topic": "How Kerala became 100% literate first",
+            "hook": "This Indian state achieved 100% literacy first.",
+            "sentences": [
+                ("In 1991, Kerala became fully literate.", "books library education"),
+                ("No other state had achieved complete adult literacy.", "student reading books"),
+                ("The secret was strong government commitment.", "government building india"),
+                ("Even families in poverty prioritized schooling.", "school children education india"),
+                ("Education became deeply embedded in culture.", "education learning knowledge"),
+                ("Women played a crucial role in spreading literacy.", "women education empowerment"),
+                ("Kerala proved universal education was achievable.", "success achievement education"),
+            ]
+        },
     ],
     "travel": [
-        {"topic": "The most dangerous road on Earth", "hook": "This road has killed over 300 people in one year.", "sentences": [
-            ("In Pakistan, the Karakoram Highway passes through terrifying territory.", ["mountain", "road", "cliffs"]),
-            ("This incredible road was built during the 1970s.", ["mountain", "highway", "engineering"]),
-            ("Narrow passages hang thousands of meters above the valleys.", ["mountain", "cliffs", "danger"]),
-            ("There are no guardrails to protect drivers.", ["mountain", "road", "cliffs"]),
-            ("Landslides and rockfalls are common occurrences.", ["mountain", "landslide", "danger"]),
-            ("Yet thousands of trucks travel this route every year.", ["truck", "highway", "travel"]),
-            ("This road truly earns its reputation as the most dangerous on Earth.", ["mountain", "danger", "road"]),
-        ]},
-        {"topic": "The island where animals outnumber humans", "hook": "On this island, animals outnumber humans by 100 to 1.", "sentences": [
-            ("In Botswana's Savute, wildlife roams freely.", ["safari", "elephants", "africa"]),
-            ("Lions, zebras, and elephants live here in extraordinary numbers.", ["safari", "wildlife", "africa"]),
-            ("Humans are merely visitors in this wild kingdom.", ["safari", "wilderness", "nature"]),
-            ("The area forms part of Chobe National Park.", ["safari", "park", "africa"]),
-            ("Every year, thousands of tourists witness the animal migrations.", ["safari", "elephants", "migration"]),
-            ("Nature operates by its own rules here.", ["safari", "wildlife", "nature"]),
-            ("This glimpse of the ancient world reminds us of our planet's past.", ["safari", "wilderness", "nature"]),
-        ]},
-        {"topic": "The beach with pink sand", "hook": "This beach has pink sand most don't know exists.", "sentences": [
-            ("On Bonaire island in the Caribbean lies a unique beach.", ["beach", "tropical", "caribbean"]),
-            ("The sand has a distinctive pink color.", ["pink beach", "sand", "tropical"]),
-            ("The color comes from tiny red coral mixed with white sand.", ["coral", "beach", "ocean"]),
-            ("Crystal clear turquoise waters meet the pink sand.", ["beach", "ocean", "caribbean"]),
-            ("This creates a dreamlike landscape.", ["beach", "paradise", "tropical"]),
-            ("This unknown paradise remains uncrowded.", ["beach", "empty", "tropical"]),
-            ("Nature's artistry produces colors that no paint could match.", ["beach", "sunset", "ocean"]),
-        ]},
+        {
+            "topic": "The most dangerous road on Earth",
+            "hook": "This road has killed hundreds of people.",
+            "sentences": [
+                ("In Pakistan, the Karakoram Highway passes through terrifying territory.", "pakistan mountain road himalayas"),
+                ("This incredible road was built during the 1970s.", "mountain road engineering construction"),
+                ("Narrow passages hang thousands of meters above valleys.", "mountain cliff edge dangerous"),
+                ("There are no guardrails to protect drivers.", "mountain road no barrier edge"),
+                ("Landslides and rockfalls are common here.", "mountain landslide rocks falling"),
+                ("Yet thousands of trucks travel this route yearly.", "trucks highway mountain road"),
+                ("This is the most dangerous highway on Earth.", "dangerous road mountain extreme"),
+            ]
+        },
+        {
+            "topic": "The island where animals outnumber humans",
+            "hook": "Animals outnumber humans by 100 to 1 here.",
+            "sentences": [
+                ("In Botswana, wildlife roams freely.", "africa safari elephants wildlife"),
+                ("Lions, zebras, and elephants live here in numbers.", "safari lions zebras wildlife"),
+                ("Humans are merely visitors in this wild kingdom.", "safari wilderness nature africa"),
+                ("The area forms part of Chobe National Park.", "africa national park safari"),
+                ("Every year, thousands witness the animal migrations.", "elephant migration africa savanna"),
+                ("Nature operates by its own rules here.", "wildlife nature africa savanna"),
+                ("This glimpse reminds us of our planet's past.", "africa sunset wilderness nature"),
+            ]
+        },
+        {
+            "topic": "The beach with pink sand",
+            "hook": "This beach has pink sand most don't know.",
+            "sentences": [
+                ("On Bonaire island in the Caribbean lies this unique beach.", "caribbean tropical island beach"),
+                ("The sand has a distinctive pink color.", "pink beach sand tropical"),
+                ("The color comes from red coral mixed with white sand.", "coral reef ocean underwater"),
+                ("Crystal clear turquoise waters meet the pink sand.", "turquoise water beach caribbean"),
+                ("This creates a dreamlike landscape.", "paradise beach tropical beautiful"),
+                ("This unknown paradise remains uncrowded.", "empty beach tropical peaceful"),
+                ("Nature's artistry produces colors no paint could match.", "sunset beach beautiful colors"),
+            ]
+        },
     ],
     "quotes": [
-        {"topic": "The 5 AM habit of successful people", "hook": "Every successful person shares one morning habit.", "sentences": [
-            ("Winners wake up before the world starts moving.", ["sunrise", "morning", "motivation"]),
-            ("At five in the morning, distractions are at zero.", ["sunrise", "morning", "early"]),
-            ("The mind is fresh and uncluttered by the day's demands.", ["meditation", "peaceful", "morning"]),
-            ("This quiet hour becomes a competitive advantage.", ["sunrise", "success", "motivation"]),
-            ("While others sleep, winners are already three hours ahead.", ["sunrise", "morning", "productivity"]),
-            ("They use this time for exercise, reading, and planning.", ["workout", "reading", "morning"]),
-            ("Take back control of your mornings and watch everything change.", ["sunrise", "motivation", "success"]),
-        ]},
-        {"topic": "Why consistency beats talent", "hook": "Talent will fail you. Consistency will not.", "sentences": [
-            ("Every expert was once a beginner who refused to quit.", ["athlete", "training", "practice"]),
-            ("What separates winners from quitters is pure consistency.", ["athlete", "discipline", "training"]),
-            ("They showed up every single day, even when motivation faded.", ["workout", "training", "discipline"]),
-            ("Talent gives you a head start but cannot carry you across the finish line.", ["athlete", "running", "race"]),
-            ("Effort and persistence create skills talent alone cannot match.", ["training", "gym", "workout"]),
-            ("Small steps forward accumulate into remarkable achievements.", ["athlete", "mountain", "success"]),
-            ("Talent is a gift, but consistency is a choice anyone can make.", ["athlete", "training", "discipline"]),
-        ]},
-        {"topic": "The one thing that separates winners from losers", "hook": "Winners and losers have the same opportunities.", "sentences": [
-            ("When faced with difficulty, losers make excuses.", ["mountain", "obstacle", "challenge"]),
-            ("Winners find ways forward instead.", ["mountain peak", "success", "victory"]),
-            ("Your reaction to failure determines your future.", ["overcoming", "challenge", "success"]),
-            ("Success is not about never falling down.", ["falling", "getting up", "persistence"]),
-            ("True success lies in getting back up every single time.", ["mountain peak", "success", "victory"]),
-            ("Every successful person has faced moments of doubt.", ["mountain", "darkness", "challenge"]),
-            ("What made them different was refusing to accept defeat.", ["mountain peak", "success", "winning"]),
-        ]},
+        {
+            "topic": "The 5 AM habit of successful people",
+            "hook": "Every successful person shares one morning habit.",
+            "sentences": [
+                ("Winners wake up before the world starts moving.", "sunrise morning early dawn"),
+                ("At five in the morning, distractions are zero.", "quiet morning peaceful sunrise"),
+                ("The mind is fresh and uncluttered.", "meditation peaceful calm morning"),
+                ("This quiet hour becomes a competitive advantage.", "success achievement morning motivation"),
+                ("While others sleep, winners are already ahead.", "sunrise early morning productivity"),
+                ("They use this time for exercise and planning.", "morning workout exercise fitness"),
+                ("Take back control of your mornings and change everything.", "success motivation sunrise achievement"),
+            ]
+        },
+        {
+            "topic": "Why consistency beats talent",
+            "hook": "Talent will fail you. Consistency will not.",
+            "sentences": [
+                ("Every expert was once a beginner who refused to quit.", "athlete beginner training"),
+                ("What separates winners from quitters is consistency.", "athlete training discipline"),
+                ("They showed up every single day.", "daily workout gym training"),
+                ("Talent gives you a head start but cannot carry you.", "runner race starting line"),
+                ("Effort and persistence create skills talent cannot match.", "training practice improvement"),
+                ("Small steps accumulate into remarkable achievements.", "mountain climb achievement summit"),
+                ("Talent is a gift, but consistency is a choice.", "discipline determination success"),
+            ]
+        },
+        {
+            "topic": "The one thing that separates winners from losers",
+            "hook": "Winners and losers have the same opportunities.",
+            "sentences": [
+                ("When faced with difficulty, losers make excuses.", "mountain obstacle challenge"),
+                ("Winners find ways forward instead.", "mountain peak success summit"),
+                ("Your reaction to failure determines your future.", "overcoming challenge determination"),
+                ("Success is not about never falling down.", "falling getting up perseverance"),
+                ("True success lies in getting back up every time.", "stand up determination rising"),
+                ("Every successful person has faced doubt.", "darkness night struggle perseverance"),
+                ("What made them different was refusing to accept defeat.", "victory winning champion success"),
+            ]
+        },
     ],
     "food": [
-        {"topic": "The pizza created to feed a poor family", "hook": "This pizza was created to help a poor family survive.", "sentences": [
-            ("The Margherita pizza was born in Naples during hard times.", ["pizza", "italian", "food"]),
-            ("Queen Margherita visited a poor neighborhood in Naples.", ["italy", "queen", "palace"]),
-            ("The palace chefs had nothing fancy available.", ["italian food", "restaurant", "cooking"]),
-            ("The local pizzaiolo improvised with tomatoes, mozzarella, and basil.", ["pizza", "ingredients", "cooking"]),
-            ("The queen loved it so much she asked for it again.", ["pizza", "italian", "food"]),
-            ("That humble creation became one of the world's most beloved foods.", ["pizza", "italian", "restaurant"]),
-            ("Simple beginnings can lead to global fame.", ["pizza", "italian", "food"]),
-        ]},
-        {"topic": "Why Indian food is the most diverse", "hook": "Indian food is the most diverse cuisine on Earth.", "sentences": [
-            ("India has over two thousand distinct cuisines.", ["indian food", "spices", "curry"]),
-            ("Each region speaks a different language and eats different foods.", ["india", "cultural", "diversity"]),
-            ("Spices here are not just about flavor.", ["spices", "indian food", "colorful"]),
-            ("They preserve food and provide essential nutrition.", ["spices", "cooking", "ingredients"]),
-            ("From coconut-based Kerala dishes to northern kebabs.", ["curry", "kerala", "indian food"]),
-            ("The diversity comes from centuries of cultural exchange.", ["india", "market", "spices"]),
-            ("Indian cuisine truly represents a universe of flavors.", ["indian food", "curry", "spices"]),
-        ]},
-        {"topic": "The spice once worth more than gold", "hook": "This spice was once worth more than gold.", "sentences": [
-            ("Black pepper once cost more than gold in ancient Rome.", ["pepper", "spice", "market"]),
-            ("Emperors paid fortunes for tiny quantities.", ["gold", "treasure", "wealth"]),
-            ("Kerala was the world's only source for centuries.", ["india", "kerala", "spices"]),
-            ("The spice traveled thousands of miles through dangerous routes.", ["silk road", "trade", "journey"]),
-            ("This small berry shaped the history of global trade.", ["spice", "market", "trade"]),
-            ("It drove exploration and built empires.", ["exploration", "ships", "discovery"]),
-            ("This humble spice changed history forever.", ["pepper", "spice", "history"]),
-        ]},
+        {
+            "topic": "The pizza created to feed a poor family",
+            "hook": "This pizza was created to help a poor family.",
+            "sentences": [
+                ("The Margherita pizza was born in Naples during hard times.", "italian pizza restaurant naples"),
+                ("Queen Margherita visited a poor neighborhood.", "queen royal palace italy"),
+                ("The palace chefs had nothing fancy available.", "simple food basic cooking"),
+                ("The local cook improvised with tomatoes, mozzarella, and basil.", "pizza ingredients fresh basil"),
+                ("The queen loved it and asked for more.", "happy satisfied delicious food"),
+                ("That humble creation became world-famous.", "famous pizza italian food"),
+                ("Simple beginnings can lead to global fame.", "success humble beginning achievement"),
+            ]
+        },
+        {
+            "topic": "Why Indian food is the most diverse",
+            "hook": "Indian food is the most diverse cuisine on Earth.",
+            "sentences": [
+                ("India has over two thousand distinct cuisines.", "indian food curry spices colorful"),
+                ("Each region speaks a different language and eats different foods.", "india diverse culture market"),
+                ("Spices here are not just about flavor.", "indian spices colorful market"),
+                ("They preserve food and provide nutrition.", "indian cooking traditional spices"),
+                ("From coconut Kerala dishes to northern kebabs.", "kerala food coconut curry south india"),
+                ("The diversity comes from centuries of exchange.", "india spice market trade"),
+                ("Indian cuisine represents a universe of flavors.", "indian food variety colorful delicious"),
+            ]
+        },
+        {
+            "topic": "The spice once worth more than gold",
+            "hook": "This spice was once worth more than gold.",
+            "sentences": [
+                ("Black pepper once cost more than gold in ancient Rome.", "black pepper spices market"),
+                ("Emperors paid fortunes for tiny quantities.", "roman emperor ancient wealth"),
+                ("Kerala was the world's only source for centuries.", "kerala india spice plantation"),
+                ("The spice traveled thousands of miles through dangerous routes.", "silk road trade ancient journey"),
+                ("This small berry shaped global trade history.", "trade route ships ocean voyage"),
+                ("It drove exploration and built empires.", "exploration discovery new worlds"),
+                ("This humble spice changed history forever.", "spice history ancient trade"),
+            ]
+        },
     ]
 }
 
@@ -183,155 +243,121 @@ def get_audio_duration(audio_path):
         )
         return float(result.stdout.strip())
     except:
-        return 45
+        return 0
 
-def download_image(query, idx, timestamp):
-    """Download a single image from Lorem Picsum"""
+async def generate_audio_segment(text, output_path):
+    """Generate audio for a single sentence using edge-tts"""
+    try:
+        import edge_tts
+        communicate = edge_tts.Communicate(text, voice="en-US-AriaNeural")
+        await communicate.save(str(output_path))
+        return True
+    except Exception as e:
+        print(f"  Edge-TTS error: {e}")
+        return False
+
+def download_image(search_term, idx, timestamp):
+    """Download image from Pexels (free, reliable)"""
     try:
         output = TEMP_DIR / f"img-{timestamp}-{idx}.jpg"
-        # Use fixed seeds for consistent images
-        url = f"https://picsum.photos/seed/{query.replace(' ', '')}/1080/1920"
+
+        # Use Unsplash Source with better queries
+        query = quote(search_term.replace(' ', '+'))
+        url = f"https://source.unsplash.com/1080x1920/?{query}"
+
         r = requests.get(url, timeout=30, allow_redirects=True)
-        if r.status_code == 200 and len(r.content) > 5000:
+        if r.status_code == 200 and len(r.content) > 10000:
             with open(output, "wb") as f:
                 f.write(r.content)
-            if output.exists() and output.stat().st_size > 5000:
+            if output.exists() and output.stat().st_size > 10000:
                 return str(output)
     except Exception as e:
         print(f"  Image error: {e}")
     return None
 
-async def generate_voiceover_edge(text):
-    """Generate voiceover using edge-tts"""
-    try:
-        import edge_tts
-        output = TEMP_DIR / f"voice-{int(datetime.now().timestamp())}.mp3"
-        communicate = edge_tts.Communicate(text, voice="en-US-AriaNeural")
-        await communicate.save(str(output))
-        return str(output)
-    except Exception as e:
-        print(f"  Edge-TTS error: {e}")
-        return None
-
-def generate_voiceover(text):
-    """Generate voiceover"""
-    audio = asyncio.run(generate_voiceover_edge(text))
-    if not audio:
-        try:
-            from gtts import gTTS
-            output = TEMP_DIR / f"voice-{int(datetime.now().timestamp())}.mp3"
-            tts = gTTS(text=text, lang="en", slow=False)
-            tts.save(str(output))
-            return str(output)
-        except:
-            return None
-    return audio
-
-def estimate_sentence_duration(sentence):
-    """Estimate duration based on word count (average 4 words/second for natural speech)"""
-    words = len(sentence.split())
-    return max(2.0, words / 4.0)  # Minimum 2 seconds
-
-def download_sentence_images(sentences):
-    """Download images for each sentence section"""
-    timestamp = int(datetime.now().timestamp())
-    sentence_images = []
-
-    for idx, (sentence, queries) in enumerate(sentences):
-        img = download_image(queries[0], idx, timestamp)
-        if not img:
-            img = download_image("nature", idx, timestamp)
-        sentence_images.append(img)
-        print(f"  Section {idx+1}: {sentence[:40]}...")
-
-    return sentence_images
-
-def create_synced_video(sentences, sentence_images, audio_path):
-    """Create video with images synced to sentence timing"""
-    output = UPLOADS_DIR / f"short-{datetime.now().strftime('%Y%m%d-%H%M%S')}.mp4"
-
-    # Calculate durations for each section
-    durations = [estimate_sentence_duration(s[0]) for s in sentences]
-    total_duration = sum(durations)
-
-    print(f"  Total video duration: {total_duration:.1f}s")
-    print(f"  Creating {len(sentences)} sections")
-
-    # Create video segments for each sentence
-    segments = []
-    for idx, (sentence, queries) in enumerate(sentences):
-        img = sentence_images[idx] if idx < len(sentence_images) else None
-        duration = durations[idx]
-        seg = TEMP_DIR / f"seg-{idx}.mp4"
-
-        if img and Path(img).exists():
-            # Create segment with image - proper 9:16 crop (not stretch)
-            cmd = [
-                'ffmpeg', '-y',
-                '-loop', '1', '-i', img,
-                '-t', str(duration),
-                '-vf', 'scale=1920:1920:force_original_aspect_ratio=increase,crop=1080:1920',
-                '-c:v', 'libx264', '-preset', 'fast', '-crf', '23',
-                '-pix_fmt', 'yuv420p', '-r', '30',
-                str(seg)
-            ]
-        else:
-            # Fallback: use solid color
-            cmd = [
-                'ffmpeg', '-y',
-                '-f', 'lavfi', '-i', f'color=0x667eea:s=1080x1920:d={duration}:r=30',
-                '-c:v', 'libx264', '-preset', 'fast', '-crf', '23', '-pix_fmt', 'yuv420p',
-                str(seg)
-            ]
-
+def create_image_segment(image_path, duration, output_path):
+    """Create a video segment from an image"""
+    if not image_path or not Path(image_path).exists():
+        # Fallback to gradient background
+        cmd = [
+            'ffmpeg', '-y',
+            '-f', 'lavfi', '-i', f'color=0x667eea:s=1080x1920:d={duration}:r=30',
+            '-c:v', 'libx264', '-preset', 'fast', '-crf', '23',
+            '-pix_fmt', 'yuv420p', str(output_path)
+        ]
         subprocess.run(cmd, capture_output=True)
-        if seg.exists():
-            segments.append(str(seg))
+        return output_path.exists()
 
-    if not segments:
-        print("  No segments created")
-        return None
-
-    # Concatenate all segments
-    list_file = TEMP_DIR / "segments.txt"
-    with open(list_file, "w") as f:
-        for seg in segments:
-            f.write(f"file '{seg}'\n")
-
-    concat_output = TEMP_DIR / "concat-video.mp4"
-    cmd = ['ffmpeg', '-y', '-f', 'concat', '-safe', '0', '-i', str(list_file), '-c', 'copy', str(concat_output)]
-    subprocess.run(cmd, capture_output=True)
-
-    if not concat_output.exists():
-        print("  Concatenation failed")
-        return None
-
-    # Add audio to video
+    # Scale and crop to 9:16 without stretching
     cmd = [
         'ffmpeg', '-y',
-        '-i', str(concat_output),
-        '-i', audio_path,
+        '-loop', '1', '-i', image_path,
+        '-t', str(duration),
+        '-vf', 'scale=1920:1920:force_original_aspect_ratio=increase,crop=1080:1920',
+        '-c:v', 'libx264', '-preset', 'fast', '-crf', '23',
+        '-pix_fmt', 'yuv420p', '-r', '30',
+        str(output_path)
+    ]
+    subprocess.run(cmd, capture_output=True)
+    return output_path.exists()
+
+def concatenate_videos(video_list, output_path):
+    """Concatenate multiple video segments"""
+    if not video_list:
+        return False
+
+    list_file = TEMP_DIR / "concat.txt"
+    with open(list_file, "w") as f:
+        for v in video_list:
+            f.write(f"file '{v}'\n")
+
+    cmd = [
+        'ffmpeg', '-y',
+        '-f', 'concat', '-safe', '0', '-i', str(list_file),
+        '-c', 'copy', str(output_path)
+    ]
+    subprocess.run(cmd, capture_output=True)
+    return output_path.exists()
+
+def concatenate_audio(audio_list, output_path):
+    """Concatenate multiple audio segments"""
+    if not audio_list:
+        return False
+
+    list_file = TEMP_DIR / "audio_concat.txt"
+    with open(list_file, "w") as f:
+        for a in audio_list:
+            f.write(f"file '{a}'\n")
+
+    cmd = [
+        'ffmpeg', '-y',
+        '-f', 'concat', '-safe', '0', '-i', str(list_file),
+        '-c', 'copy', str(output_path)
+    ]
+    subprocess.run(cmd, capture_output=True)
+    return output_path.exists()
+
+def create_final_video(video_path, audio_path, output_path):
+    """Combine video and audio"""
+    cmd = [
+        'ffmpeg', '-y',
+        '-i', str(video_path),
+        '-i', str(audio_path),
         '-c:v', 'libx264', '-preset', 'medium', '-crf', '23',
         '-c:a', 'aac', '-b:a', '128k',
         '-shortest',
-        str(output)
+        str(output_path)
     ]
     subprocess.run(cmd, capture_output=True)
-
-    if output.exists():
-        return str(output)
-
-    print("  Failed to add audio")
-    return None
+    return output_path.exists()
 
 def get_best_script():
-    """Select and prepare script"""
+    """Select a random script"""
     all_scripts = []
     for style, scripts in SHORT_SCRIPTS.items():
         for script in scripts:
             script["style"] = style
             all_scripts.append(script)
-
     return random.choice(all_scripts)
 
 def upload_to_youtube(video_path, script):
@@ -397,38 +423,144 @@ def upload_to_youtube(video_path, script):
 
 def run_daily():
     print("\n" + "=" * 60)
-    print(f"{CHANNEL_NAME} - SHORT CREATOR v8")
+    print(f"{CHANNEL_NAME} - SHORT CREATOR v9")
     print("=" * 60)
+
+    timestamp = int(datetime.now().timestamp())
 
     try:
         # 1. Script
         print("\n[1/5] Creating script...")
         script = get_best_script()
         print(f"  Topic: {script['topic']}")
-        print(f"  Sections: {len(script['sentences'])}")
+        print(f"  Sentences: {len(script['sentences'])}")
 
-        # 2. Images (synced to sentences)
-        print("\n[2/5] Downloading images...")
-        sentence_images = download_sentence_images(script["sentences"])
-        print(f"  Downloaded {len([i for i in sentence_images if i])} images")
+        # 2. Generate audio and download images per sentence
+        print("\n[2/5] Creating audio segments...")
+        audio_segments = []
+        image_segments = []
+        total_duration = 0
 
-        # 3. Voiceover (full text)
-        print("\n[3/5] Creating voiceover...")
-        full_text = script['hook'] + ' ' + ' '.join([s[0] for s in script['sentences']])
-        audio = generate_voiceover(full_text)
-        if not audio:
-            raise Exception("Voiceover failed")
-        print(f"  Audio created: {full_text[:50]}...")
+        for idx, (text, image_query) in enumerate(script['sentences']):
+            # Generate audio for this sentence
+            audio_seg = TEMP_DIR / f"audio-{timestamp}-{idx}.mp3"
+            success = asyncio.run(generate_audio_segment(text, str(audio_seg)))
 
-        # 4. Video (synced)
-        print("\n[4/5] Building synced video...")
-        video = create_synced_video(script['sentences'], sentence_images, audio)
-        if not video:
-            raise Exception("Video creation failed")
+            if success and audio_seg.exists():
+                dur = get_audio_duration(str(audio_seg))
+                audio_segments.append(str(audio_seg))
+                print(f"  [{idx+1}] {text[:40]}... ({dur:.1f}s)")
+                total_duration += dur
+            else:
+                # Fallback: create silent segment
+                audio_segments.append(None)
+                print(f"  [{idx+1}] {text[:40]}... (silent fallback)")
 
-        # 5. Upload
-        print("\n[5/5] Uploading...")
-        video_id = upload_to_youtube(video, script)
+            # Download image for this sentence
+            img = download_image(image_query, idx, timestamp)
+            image_segments.append(img)
+
+        print(f"  Total audio duration: {total_duration:.1f}s")
+
+        if not audio_segments:
+            raise Exception("No audio generated")
+
+        # 3. Concatenate all audio
+        print("\n[3/5] Combining audio...")
+        full_audio = TEMP_DIR / f"full-audio-{timestamp}.mp3"
+        valid_audio = [a for a in audio_segments if a and Path(a).exists()]
+
+        if len(valid_audio) == 1:
+            Path(valid_audio[0]).rename(full_audio)
+        elif len(valid_audio) > 1:
+            concatenate_audio(valid_audio, str(full_audio))
+
+        if not full_audio.exists():
+            raise Exception("Audio concatenation failed")
+
+        final_audio_duration = get_audio_duration(str(full_audio))
+        print(f"  Final audio duration: {final_audio_duration:.1f}s")
+
+        # 4. Create video segments synced to audio
+        print("\n[4/5] Building video...")
+
+        # Recalculate durations based on actual audio
+        video_segments = []
+        segment_durations = []
+
+        for idx, audio_seg in enumerate(audio_segments):
+            if audio_seg and Path(audio_seg).exists():
+                dur = get_audio_duration(audio_seg)
+            else:
+                # Distribute remaining time among silent segments
+                remaining = final_audio_duration - sum(segment_durations)
+                silent_count = sum(1 for a in audio_segments[idx:] if not a or not Path(a).exists())
+                dur = remaining / silent_count if silent_count > 0 else 3.0
+
+            segment_durations.append(dur)
+
+            # Adjust image duration to match audio
+            seg = TEMP_DIR / f"seg-{timestamp}-{idx}.mp4"
+            img = image_segments[idx]
+
+            # Extend image duration to match audio duration
+            if img and Path(img).exists():
+                # Loop the image for the full duration
+                cmd = [
+                    'ffmpeg', '-y',
+                    '-loop', '1', '-i', img,
+                    '-t', str(dur),
+                    '-vf', 'scale=1920:1920:force_original_aspect_ratio=increase,crop=1080:1920',
+                    '-c:v', 'libx264', '-preset', 'fast', '-crf', '23',
+                    '-pix_fmt', 'yuv420p', '-r', '30',
+                    str(seg)
+                ]
+                subprocess.run(cmd, capture_output=True)
+            else:
+                # Fallback color
+                cmd = [
+                    'ffmpeg', '-y',
+                    '-f', 'lavfi', '-i', f'color=0x667eea:s=1080x1920:d={dur}:r=30',
+                    '-c:v', 'libx264', '-preset', 'fast', '-crf', '23',
+                    '-pix_fmt', 'yuv420p', str(seg)
+                ]
+                subprocess.run(cmd, capture_output=True)
+
+            if seg.exists():
+                video_segments.append(str(seg))
+
+        if not video_segments:
+            raise Exception("No video segments created")
+
+        # Concatenate video
+        print("  Concatenating video segments...")
+        concat_video = TEMP_DIR / f"concat-video-{timestamp}.mp4"
+        concatenate_videos(video_segments, str(concat_video))
+
+        if not concat_video.exists():
+            raise Exception("Video concatenation failed")
+
+        # 5. Combine video and audio
+        print("\n[5/5] Combining video and audio...")
+        output = UPLOADS_DIR / f"short-{datetime.now().strftime('%Y%m%d-%H%M%S')}.mp4"
+
+        # Ensure video length matches audio
+        cmd = [
+            'ffmpeg', '-y',
+            '-i', str(concat_video),
+            '-i', str(full_audio),
+            '-c:v', 'libx264', '-preset', 'medium', '-crf', '23',
+            '-c:a', 'aac', '-b:a', '128k',
+            '-t', str(final_audio_duration),
+            str(output)
+        ]
+        subprocess.run(cmd, capture_output=True)
+
+        if not output.exists():
+            raise Exception("Final video creation failed")
+
+        # Upload
+        video_id = upload_to_youtube(str(output), script)
 
         print("\n" + "=" * 60)
         print(f"[+] SUCCESS! https://www.youtube.com/shorts/{video_id}" if video_id else "[+] Done!")
